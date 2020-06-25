@@ -1,9 +1,9 @@
 ---
 - hosts: all
+  become: true
   tasks:
-  - name: Set authorized key taken from file
+  - name: Deploy SSH Key
     authorized_key:
       user: root
       key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
       state: present
-      exclusive: yes
