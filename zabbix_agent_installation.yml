@@ -4,7 +4,8 @@
   become: yes
   tasks:
   - name: install zabbix repo
-    shell: rpm -Uvh https://repo.zabbix.com/zabbix/3.0/rhel/7/x86-64/zabbix-release-3.0-1.el7.noarch.rpm
+    shell: 
+       cmd: rpm -Uvh https://repo.zabbix.com/zabbix/3.0/rhel/7/x86-64/zabbix-release-3.0-1.el7.noarch.rpm
     ignore_errors: True
   - name: install zabbix-agent
     yum: 
