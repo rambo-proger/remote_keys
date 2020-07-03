@@ -1,16 +1,17 @@
 ---
 - hosts: all 
   remote_user: root
+  become: yes
   tasks:
-  - name: install epel repo
-    yum: name=epel-release state=latest 
+  - name: install zabbix repo
+    shell: rpm -Uvh https://repo.zabbix.com/zabbix/3.0/rhel/7/x86-64/zabbix-release-3.0-1.el7.noarch.rpm
+    ignore_errors: True
   - name: install zabbix-agent
-    yum: name=zabbix22-agent state=latest
-  - name: copy zabbix configuration file
-    copy: src=./conf/zabbix_agentd.conf dest=/etc/zabbix_agentd.conf seuser=system_u
-    notify:
-      - Start Zabbix-agent
-      
-  handlers:
-  - name: Start zabbix-agent
-    service: name=zabbix-agent state=started enabled=yes
+    yum: 
+      name: zabbix-agent
+      state: latest
+  - name:
+    service:
+       name: zabbix-agent
+       state: started
+       enabled: yes
